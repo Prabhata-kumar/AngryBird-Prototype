@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
         if (isPresed)
         {
             Vector2 mousePus = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
             if(Vector3.Distance(mousePus, rb.position) > MaxDrageDistance)
                 rb.position = hooked.position +(mousePus - hooked.position).normalized * MaxDrageDistance;
             else
@@ -45,5 +46,9 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(RelizeTime);
         GetComponent<SpringJoint2D>().enabled = false;
+        this.enabled = false;
+
+        yield return new WaitForSeconds(2f);
+
     }
 }

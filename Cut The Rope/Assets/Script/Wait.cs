@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Wait : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public float distanceFromChain = 0.6f;
+   public void ConnectRopeEnd(Rigidbody2D endRB)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        HingeJoint2D joint = gameObject.AddComponent<HingeJoint2D>();
+        joint.autoConfigureConnectedAnchor = false; 
+        joint.connectedBody = endRB;
+        joint.anchor = Vector2.zero;
+        joint.connectedAnchor = new Vector2 (0f,-distanceFromChain );
     }
 }

@@ -5,10 +5,10 @@ using UnityEngine;
 public class Rope : MonoBehaviour
 {
 
-    public GameObject prefab;
-    public HingeJoint2D hook;
-    public int link;
-    public GameObject Weight;
+    public GameObject Linkprefab;
+    public Rigidbody2D hook;
+    public int links=7;
+    public  Wait wait;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,11 +19,22 @@ public class Rope : MonoBehaviour
     
     void GeneratingRope()
     {
-        for(int i =0; i < link; i++)
+        Rigidbody2D priviousRB= hook;
+        for(int i =0; i < links; i++)
         {
 
-           GameObject Link.instantiate(link.prefab.transform );
+           GameObject link = Instantiate(Linkprefab,transform );
+           HingeJoint2D joint= link.GetComponent<HingeJoint2D>();
+            joint.connectedBody = priviousRB;
 
+            if (i < links - 1)
+            { 
+                priviousRB = link.GetComponent<Rigidbody2D>();
+            }
+            else
+            {
+                wait.ConnectRopeEnd(link.GetComponent<Rigidbody2D>());
+            }
         }                        
     }
 }
